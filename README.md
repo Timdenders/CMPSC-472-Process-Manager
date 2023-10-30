@@ -31,6 +31,58 @@ Contributor: Timothy D. Enders
    - Features for logging and reporting to track and display the execution of processes and threads.
    - Logs significant events, errors, and information related to process synchronization.
 ## Installation Instructions:
+Before running the program, you need to ensure that you have Python installed on your Windows environment. The code is designed to work in a Windows environment.
+
+Python Installation: If you don't have Python installed, you can download it from the official Python website (https://www.python.org/downloads/) and follow the installation instructions for Windows.
+
+Libraries: This program uses the psutil library for obtaining information about running processes. You can install it using pip:
+
+```shell
+pip install psutil
+
+Running the Program: To run the program, simply execute the Python script in your terminal or command prompt. Navigate to the directory where the script is located and run:
+
+```shell
+python process_manager.py
+
+Now, let's move on to the Usage Guide.
 ## Usage Guide:
+This section provides instructions on how to effectively use the Process Manager program. It should guide users on how to perform various actions, create processes, threads, terminate them, and use the different functionalities provided by the program.
+
+Creating a New Process:
+To create a new process, select option 1.
+Enter a unique process name when prompted.
+The new process will be created and listed in the active processes.
+
+Terminating a Process/Thread:
+To terminate a process or thread, select option 2.
+Follow the on-screen instructions to specify whether you want to terminate a process or thread and provide the respective name.
+The selected process or thread will be terminated.
+
+Listing and Monitoring Processes:
+To list and monitor running processes, select option 3.
+The program will display information about each running process, including its Process ID (PID), Parent Process ID, and state.
+
+Sending IPC Message:
+To send an Inter-Process Communication (IPC) message, select option 4.
+Enter the message you want to send when prompted.
+The message will be delivered to the target process or thread.
+
+Receiving IPC Message:
+To receive an IPC message, select option 5.
+The program will check for incoming IPC messages and display them if any are available.
+
+Process Synchronization:
+To demonstrate process synchronization, select option 6.
+The program will execute a demonstration of producer-consumer process synchronization.
+
+Display Log Text:
+To display the program's log text, select option 7.
+You can review the log to check for events, errors, and information related to process synchronization.
+Now, let's proceed to the Test Results section.
 ## Test Results:
+
 ## Project Discussion:
+This program demonstrates the effective use of synchronization mechanisms, such as semaphores and mutexes, to address synchronization challenges commonly encountered in multi-process and multi-threaded applications. It provides a hands-on approach to safeguarding shared resources and orchestrating the execution of multiple processes and threads.
+
+In summary, this sophisticated process management system, coupled with process synchronization, serves as an invaluable resource for both educational and practical purposes. It empowers users with the expertise and utilities required for efficient process and thread management, ensuring secure data access and reducing contention. This software is a valuable asset for developers working on concurrent and parallel processing tasks, enhancing their toolkit for tackling complex synchronization issues.
