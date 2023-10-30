@@ -1,0 +1,52 @@
+2023-10-29 23:21:46,681 - Process 'p1', PID: <Process name='Process-1' parent=12804 initial> created
+2023-10-29 23:21:46,681 - Process: 'p1',  PID: 12804 running
+2023-10-29 23:22:02,453 - Thread 't1' created
+2023-10-29 23:22:13,470 - Thread 't1' terminated
+2023-10-29 23:22:21,894 - Process 'p2', PID: <Process name='Process-2' parent=12804 initial> created
+2023-10-29 23:22:21,894 - Process: 'p2',  PID: 12804 running
+2023-10-29 23:22:27,586 - Thread 't2' created
+2023-10-29 23:22:29,485 - Thread 'p3' created
+2023-10-29 23:22:36,942 - Thread 'p3' created
+2023-10-29 23:22:42,478 - Process: p1, PID: None, Parent PID: 11836, State: running
+2023-10-29 23:22:42,487 - Process: p2, PID: None, Parent PID: 11836, State: running
+2023-10-29 23:22:52,213 - Message sent: Hello
+2023-10-29 23:22:57,221 - Produced Item 0, Buffer: ['Item 0']
+2023-10-29 23:22:57,222 - Produced Item 0, Buffer: ['Item 0', 'Item 0']
+2023-10-29 23:22:57,222 - Consumed Item 0, Buffer: ['Item 0']
+2023-10-29 23:22:57,223 - Consumed Item 0, Buffer: []
+2023-10-29 23:22:57,326 - Produced Item 1, Buffer: ['Item 1']
+2023-10-29 23:22:57,446 - Produced Item 2, Buffer: ['Item 1', 'Item 2']
+2023-10-29 23:22:57,545 - Produced Item 1, Buffer: ['Item 1', 'Item 2', 'Item 1']
+2023-10-29 23:22:57,571 - Consumed Item 1, Buffer: ['Item 2', 'Item 1']
+2023-10-29 23:22:57,587 - Consumed Item 2, Buffer: ['Item 1']
+2023-10-29 23:22:57,606 - Produced Item 3, Buffer: ['Item 1', 'Item 3']
+2023-10-29 23:22:57,699 - Produced Item 2, Buffer: ['Item 1', 'Item 3', 'Item 2']
+2023-10-29 23:22:57,738 - Consumed Item 1, Buffer: ['Item 3', 'Item 2']
+2023-10-29 23:22:57,946 - Produced Item 4, Buffer: ['Item 3', 'Item 2', 'Item 4']
+2023-10-29 23:22:57,953 - Consumed Item 3, Buffer: ['Item 2', 'Item 4']
+2023-10-29 23:22:57,964 - Consumed Item 2, Buffer: ['Item 4']
+2023-10-29 23:22:57,972 - Produced Item 3, Buffer: ['Item 4', 'Item 3']
+2023-10-29 23:22:58,153 - Produced Item 4, Buffer: ['Item 4', 'Item 3', 'Item 4']
+2023-10-29 23:22:58,247 - Consumed Item 4, Buffer: ['Item 3', 'Item 4']
+2023-10-29 23:22:58,266 - Consumed Item 3, Buffer: ['Item 4']
+2023-10-29 23:22:58,268 - Produced Item 5, Buffer: ['Item 4', 'Item 5']
+2023-10-29 23:22:58,339 - Produced Item 5, Buffer: ['Item 4', 'Item 5', 'Item 5']
+2023-10-29 23:22:58,434 - Consumed Item 4, Buffer: ['Item 5', 'Item 5']
+2023-10-29 23:22:58,590 - Produced Item 6, Buffer: ['Item 5', 'Item 5', 'Item 6']
+2023-10-29 23:22:58,606 - Produced Item 6, Buffer: ['Item 5', 'Item 5', 'Item 6', 'Item 6']
+2023-10-29 23:22:58,608 - Consumed Item 5, Buffer: ['Item 5', 'Item 6', 'Item 6']
+2023-10-29 23:22:58,666 - Consumed Item 5, Buffer: ['Item 6', 'Item 6']
+2023-10-29 23:22:58,766 - Produced Item 7, Buffer: ['Item 6', 'Item 6', 'Item 7']
+2023-10-29 23:22:58,792 - Consumed Item 6, Buffer: ['Item 6', 'Item 7']
+2023-10-29 23:22:58,894 - Produced Item 7, Buffer: ['Item 6', 'Item 7', 'Item 7']
+2023-10-29 23:22:58,907 - Produced Item 8, Buffer: ['Item 6', 'Item 7', 'Item 7', 'Item 8']
+2023-10-29 23:22:58,971 - Consumed Item 6, Buffer: ['Item 7', 'Item 7', 'Item 8']
+2023-10-29 23:22:59,025 - Produced Item 9, Buffer: ['Item 7', 'Item 7', 'Item 8', 'Item 9']
+2023-10-29 23:22:59,081 - Consumed Item 7, Buffer: ['Item 7', 'Item 8', 'Item 9']
+2023-10-29 23:22:59,296 - Produced Item 8, Buffer: ['Item 7', 'Item 8', 'Item 9', 'Item 8']
+2023-10-29 23:22:59,343 - Consumed Item 7, Buffer: ['Item 8', 'Item 9', 'Item 8']
+2023-10-29 23:22:59,499 - Consumed Item 8, Buffer: ['Item 9', 'Item 8']
+2023-10-29 23:22:59,681 - Produced Item 9, Buffer: ['Item 9', 'Item 8', 'Item 9']
+2023-10-29 23:22:59,809 - Consumed Item 9, Buffer: ['Item 8', 'Item 9']
+2023-10-29 23:22:59,869 - Consumed Item 8, Buffer: ['Item 9']
+2023-10-29 23:22:59,913 - Consumed Item 9, Buffer: []
