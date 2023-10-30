@@ -108,6 +108,7 @@ Demonstrate producer-consumer process synchronization:
 Display log text:
 
 <img src="Test Images/img7.png" alt="Alt Text" width="860" height="350">
+
 ## Project Discussion:
 Despite the challenges, the test results have been generally positive. The following aspects of the project have been tested and validated:
 
