@@ -11,16 +11,16 @@ Contributor: Timothy D. Enders
    - Project Discussion: Offers an insightful discussion on the outcomes and implications of the project.
 ## Implemented Functionalities:
 1. Process Creation:
-   - A mechanism for creating new processes, utilizing system calls such as 'fork' and 'exec'.
+   - A mechanism for creating new processes, utilizing system calls such as 'exec'.
 2. Process Management:
    - Capabilities to list, terminate, and monitor active processes.
    - Users can access information about each process, including its Process ID (PID), Parent Process ID, and state.
 3. Thread Support:
    - The Process Manager can accommodate multiple threads within a process.
-   - Contains means for thread creation, termination, and synchronization, leveraging system calls like 'pthread_create' and synchronization tools like mutexes and semaphores.
+   - Contains means for thread creation, termination, and synchronization, leveraging synchronization tools like mutexes and semaphores.
 4. Inter-Process Communication (IPC):
    - IPC methods that facilitate communication and data sharing between processes and threads.
-   - Techniques such as message passing, shared memory, and pipes for IPC, using system calls like 'pipe', 'msgget', and 'shmget'.
+   - Techniques such as message passing, shared memory, and pipes for IPC, using system calls like 'pipe'.
 5. Process Synchronization:
    - Includes synchronization primitives like mutexes and semaphores.
    - Demonstrates the application of synchronization mechanisms to resolve common synchronization challenges, such as producer-consumer and reader-writer problems.
@@ -84,6 +84,16 @@ Now, let's proceed to the Test Results section.
 See test images.
 
 ## Project Discussion:
-This program demonstrates the effective use of synchronization mechanisms, such as semaphores and mutexes, to address synchronization challenges commonly encountered in multi-process and multi-threaded applications. It provides a hands-on approach to safeguarding shared resources and orchestrating the execution of multiple processes and threads.
+Despite the challenges, the test results have been generally positive. The following aspects of the project have been tested and validated:
 
-In summary, this sophisticated process management system, coupled with process synchronization, serves as an invaluable resource for both educational and practical purposes. It empowers users with the expertise and utilities required for efficient process and thread management, ensuring secure data access and reducing contention. This software is a valuable asset for developers working on concurrent and parallel processing tasks, enhancing their toolkit for tackling complex synchronization issues.
+1. Process Creation: The creation of new processes was tested, and the logs confirmed the successful launch of these processes.
+
+2. Thread Creation: Threads were created within processes, and their behavior was observed. The log entries confirmed that threads were created and executed as expected.
+
+3. Process and Thread Termination: Processes and threads were successfully terminated upon user command. The termination of processes and threads was confirmed through log entries.
+
+4. IPC Message Handling: Inter-Process Communication (IPC) messages were sent and received correctly between processes. The logs provided a record of sent and received messages.
+
+5. Process Synchronization: Process synchronization was tested using producer-consumer scenarios, and the logs confirmed the correct synchronization of threads.
+
+6. Log File Management: The project's ability to create and manage log files was tested. Log files were successfully created, and their content was displayed as expected.
