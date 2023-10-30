@@ -1,3 +1,4 @@
+import errno
 import logging
 import multiprocessing
 import os
@@ -62,7 +63,7 @@ def create_thread(thd_name):
 def process_handler(proc_name):
     try:
         process_mgr_log.info(
-            f"Process: '{proc_name}',  PID: {os.getpid()} running")
+            f"Process: '{proc_name}', PID: {os.getpid()} running")
         threads_dic[os.getpid()] = []
         while True:
             print("\nOptions:")
@@ -76,10 +77,10 @@ def process_handler(proc_name):
             elif cho == "2":
                 show_threads()
             elif cho == "3":
-                print("\n")
+                print("\n", end="")
                 break
             else:
-                print("Please enter a valid number.")
+                print("Please enter a valid number")
     except Exception as e:
         process_mgr_log.error(f"Error in process_handler: {str(e)}")
 
@@ -98,7 +99,7 @@ def thread_handler(thd_name):
 def show_processes():
     try:
         if not active_processes:
-            print("No processes were created")
+            print("No processes were created\n")
             process_mgr_log.info("No processes were created")
         else:
             for pid, proc_name in active_processes.items():
@@ -106,9 +107,10 @@ def show_processes():
                 parent_pid = process_info.ppid()
                 state = process_info.status()
                 process_mgr_log.info(
-                    f"Process: {proc_name}, PID: {pid.pid}, Parent PID: {parent_pid}, State: {state}")
+                    f"Process: {proc_name}, PID: {os.getpid()}, Parent PID: {parent_pid}, State: {state}")
                 print(
-                    f"Process: {proc_name}, PID: {pid.pid}, Parent PID: {parent_pid}, State: {state}")
+                    f"Process: {proc_name}, PID: {os.getpid()}, Parent PID: {parent_pid}, State: {state}")
+            print("\n", end="")
     except Exception as e:
         process_mgr_log.error(f"Error in show_processes: {str(e)}")
 
@@ -119,7 +121,7 @@ def show_threads():
         process_pid = os.getpid()
         thds = threads_dic.get(process_pid, [])
         if not thds:
-            print("No threads available from the process.")
+            print("No threads available from the process")
         else:
             print(f"Thread name(s): ")
             for thread in thds:
@@ -131,36 +133,38 @@ def show_threads():
 
 # Function to terminate a specific process
 def terminate_process(p_name):
-    for pid, proc_name in list(active_processes.items()):
-        if proc_name == p_name:
-            process = pid
+    try:
+        process = active_processes.get(p_name)
+        if process:
             if process.is_alive():
                 process.terminate()
-                del active_processes[pid]
+                process.join()
                 print(f"Process '{p_name}' terminated")
                 process_mgr_log.info(f"Process '{p_name}' terminated")
             else:
                 print(f"Process '{p_name}' is not running")
                 process_mgr_log.warning(f"Process '{p_name}' is not running")
-            return
-    print(f"Process '{p_name}' not found.")
-    process_mgr_log.error(f"Process '{p_name}' not found.")
+        else:
+            print(f"Process '{p_name}' doesn't exist")
+            process_mgr_log.error(f"Process '{p_name}' doesn't exist")
+    except Exception as e:
+        process_mgr_log.error(f"Error in terminate_process: {str(e)}")
 
 
 # Function to terminate a specific thread
 def terminate_thread(thd_name):
     try:
         process_pid = os.getpid()
-        thread_terminated = False
+        thd_terminated = False
         for thread in threads_dic.get(process_pid, []):
             if thread.name == thd_name:
                 exit_thread.set()
                 thread.join()
                 threads_dic[process_pid].remove(thread)
-                thread_terminated = True
+                thd_terminated = True
                 print(f"Thread '{thd_name}' terminated")
                 process_mgr_log.info(f"Thread '{thd_name}' terminated")
-        if not thread_terminated:
+        if not thd_terminated:
             print(f"Thread '{thd_name}' doesn't exist")
             process_mgr_log.error(f"Thread '{thd_name}' doesn't exist")
     except Exception as e:
@@ -185,7 +189,7 @@ def terminate_handler():
             elif cho == "3":
                 break
             else:
-                print("Please enter a valid number.")
+                print("Please enter a valid number")
     except Exception as e:
         process_mgr_log.error(f"Error in terminate_handler: {str(e)}")
 
@@ -202,26 +206,30 @@ def ipc_send_message(msg):
 # Function to receive an IPC message
 def ipc_receive_message():
     try:
-        if os.fstat(read_pipe).st_size > 0:
-            msg = os.read(read_pipe, 512)
+        msg = os.read(read_pipe, 512)
+        if msg:
             print(f"Received message: {msg.decode()}")
+            print("\n", end="")
             process_mgr_log.info(f"Received message: {msg.decode()}")
             return msg.decode()
-        else:
+    except BlockingIOError as e:
+        if e.errno == errno.EAGAIN:
             print("There are no messages\n")
             process_mgr_log.warning("There are no messages")
+        else:
+            process_mgr_log.error(f"Error in ipc_receive_message: {str(e)}")
     except Exception as e:
         process_mgr_log.error(f"Error in ipc_receive_message: {str(e)}")
 
 
 # Function to create producer threads for synchronization
-def producer(buf, mut, emp, dat):
+def producer(buf, mut, emp, dat, prod_id):
     for i in range(10):
         item = f"Item {i}"
         emp.acquire()
         mut.acquire()
         buf.append(item)
-        print(f"Produced {item}, Buffer: {buf}")
+        print(f"Producer {prod_id} produced {item}, Buffer: {buf}")
         process_mgr_log.info(f"Produced {item}, Buffer: {buf}")
         mut.release()
         dat.release()
@@ -229,12 +237,12 @@ def producer(buf, mut, emp, dat):
 
 
 # Function to create consumer threads for synchronization
-def consumer(buf, mut, emp, dat):
+def consumer(buf, mut, emp, dat, cons_id):
     for i in range(10):
         dat.acquire()
         mut.acquire()
         item = buffer.pop(0)
-        print(f"Consumed {item}, Buffer: {buf}")
+        print(f"Consumer {cons_id} consumed {item}, Buffer: {buf}")
         process_mgr_log.info(f"Consumed {item}, Buffer: {buf}")
         mut.release()
         emp.release()
@@ -243,17 +251,18 @@ def consumer(buf, mut, emp, dat):
 
 # Function to perform process synchronization using threads
 def synchronize_threads():
-    producers = [threading.Thread(target=producer, args=(buffer, mutex, empty, data)) for _ in range(2)]
-    consumers = [threading.Thread(target=consumer, args=(buffer, mutex, empty, data)) for _ in range(2)]
+    producers = [threading.Thread(target=producer, args=(buffer, mutex, empty, data, 1)) for _ in range(2)]
+    consumers = [threading.Thread(target=consumer, args=(buffer, mutex, empty, data, (i + 1))) for i in range(2)]
     for producer_thread in producers:
         producer_thread.start()
     for consumer_thread in consumers:
         consumer_thread.start()
-    time.sleep(3)
+    time.sleep(5)
     for producer_thread in producers:
         producer_thread.join()
     for consumer_thread in consumers:
         consumer_thread.join()
+    print("\n", end="")
 
 
 # Function to display the log text from the log file
@@ -274,31 +283,32 @@ if __name__ == "__main__":
         print("(1)  Create a new process")
         print("(2)  Terminate process/thread")
         print("(3)  List and monitor running processes")
-        print("(4)  Send IPC message")
-        print("(5)  Receive IPC message")
+        print("(4)  Send message (IPC)")
+        print("(5)  Receive message (IPC)")
         print("(6)  Process Synchronization")
         print("(7)  Display log text")
         print("(8)  Exit the program")
-        choice = input("\nEnter an option number: ")
+        option = input("\nEnter an option number: ")
 
-        if choice == "1":
+        if option == "1":
             process_name = input("Enter a process name: ")
             create_process(process_name)
-        elif choice == "2":
+        elif option == "2":
             terminate_handler()
-        elif choice == "3":
+        elif option == "3":
             show_processes()
-        elif choice == "4":
+        elif option == "4":
             message = input("Enter a message to deliver: ")
+            print("\n", end="")
             ipc_send_message(message)
-        elif choice == "5":
+        elif option == "5":
             received_message = ipc_receive_message()
-        elif choice == "6":
+        elif option == "6":
             synchronize_threads()
-        elif choice == "7":
+        elif option == "7":
             display_log_text()
-        elif choice == "8":
+        elif option == "8":
             print("Exiting program...")
             exit(0)
         else:
-            print("Please enter a valid number,\n")
+            print("Please enter a valid number")
