@@ -36,47 +36,52 @@ Before running the program, you need to ensure that you have Python installed on
 Python Installation: If you don't have Python installed, you can download it from the official Python website (https://www.python.org/downloads/) and follow the installation instructions for Windows.
 
 Libraries: This program uses the psutil library for obtaining information about running processes. You can install it using pip:
+```shell
 pip install psutil
+```
 
 Running the Program: To run the program, simply execute the Python script in your terminal or command prompt. Navigate to the directory where the script is located and run:
+```shell
 python process_manager.py
+```
 
 Now, let's move on to the Usage Guide.
 ## Usage Guide:
 This section provides instructions on how to effectively use the Process Manager program. It should guide users on how to perform various actions, create processes, threads, terminate them, and use the different functionalities provided by the program.
 
-Creating a New Process:
+1. Creating a New Process:
 To create a new process, select option 1.
 Enter a unique process name when prompted.
 The new process will be created and listed in the active processes.
 
-Terminating a Process/Thread:
+2. Terminating a Process/Thread:
 To terminate a process or thread, select option 2.
 Follow the on-screen instructions to specify whether you want to terminate a process or thread and provide the respective name.
 The selected process or thread will be terminated.
 
-Listing and Monitoring Processes:
+3. Listing and Monitoring Processes:
 To list and monitor running processes, select option 3.
 The program will display information about each running process, including its Process ID (PID), Parent Process ID, and state.
 
-Sending IPC Message:
+4. Sending IPC Message:
 To send an Inter-Process Communication (IPC) message, select option 4.
 Enter the message you want to send when prompted.
 The message will be delivered to the target process or thread.
 
-Receiving IPC Message:
+5. Receiving IPC Message:
 To receive an IPC message, select option 5.
 The program will check for incoming IPC messages and display them if any are available.
 
-Process Synchronization:
+6. Process Synchronization:
 To demonstrate process synchronization, select option 6.
 The program will execute a demonstration of producer-consumer process synchronization.
 
-Display Log Text:
+7. Display Log Text:
 To display the program's log text, select option 7.
 You can review the log to check for events, errors, and information related to process synchronization.
 Now, let's proceed to the Test Results section.
 ## Test Results:
+See test images.
 
 ## Project Discussion:
 This program demonstrates the effective use of synchronization mechanisms, such as semaphores and mutexes, to address synchronization challenges commonly encountered in multi-process and multi-threaded applications. It provides a hands-on approach to safeguarding shared resources and orchestrating the execution of multiple processes and threads.
