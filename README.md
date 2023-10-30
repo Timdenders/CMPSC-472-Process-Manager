@@ -36,13 +36,9 @@ Before running the program, you need to ensure that you have Python installed on
 Python Installation: If you don't have Python installed, you can download it from the official Python website (https://www.python.org/downloads/) and follow the installation instructions for Windows.
 
 Libraries: This program uses the psutil library for obtaining information about running processes. You can install it using pip:
-
-```shell
 pip install psutil
 
 Running the Program: To run the program, simply execute the Python script in your terminal or command prompt. Navigate to the directory where the script is located and run:
-
-```shell
 python process_manager.py
 
 Now, let's move on to the Usage Guide.
