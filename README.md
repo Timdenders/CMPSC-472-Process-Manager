@@ -81,8 +81,33 @@ To display the program's log text, select option 7.
 You can review the log to check for events, errors, and information related to process synchronization.
 Now, let's proceed to the Test Results section.
 ## Test Results:
-See test images.
+Create a new process:
 
+<img src="Test Images/img1.png" alt="Alt Text" width="860" height="350">
+
+Create a new thread and show the list of threads:
+
+<img src="Test Images/img2.png" alt="Alt Text" width="860" height="350">
+
+Show a list of the processes:
+
+<img src="Test Images/img3.png" alt="Alt Text" width="860" height="350">
+
+Terminate a thread:
+
+<img src="Test Images/img4.png" alt="Alt Text" width="860" height="350">
+
+Sending and receiving an IPC Message:
+
+<img src="Test Images/img5.png" alt="Alt Text" width="860" height="350">
+
+Demonstrate producer-consumer process synchronization:
+
+<img src="Test Images/img6.png" alt="Alt Text" width="860" height="350">
+
+Display log text:
+
+<img src="Test Images/img7.png" alt="Alt Text" width="860" height="350">
 ## Project Discussion:
 Despite the challenges, the test results have been generally positive. The following aspects of the project have been tested and validated:
 
