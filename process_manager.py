@@ -6,10 +6,13 @@ import random
 import threading
 import time
 
+# Configure logging for the process manager and set log file name
 logging.basicConfig(filename='proc_mgr_log.log',
                     level=logging.INFO, format='%(asctime)s - %(message)s')
 process_mgr_log = logging.getLogger('proc_mgr_log')
 process_mgr_log.setLevel(logging.INFO)
+
+# Define constants and data structures for process and thread management
 BUFFER_SIZE = 5
 buffer = []
 mutex = threading.Semaphore(1)
@@ -21,6 +24,7 @@ exit_thread = threading.Event()
 read_pipe, write_pipe = os.pipe()
 
 
+# Function to create a new process
 def create_process(proc_name):
     try:
         pid = multiprocessing.Process(args=(proc_name,))
@@ -40,6 +44,7 @@ def create_process(proc_name):
         process_mgr_log.error(f"Error in create_process: {str(e)}")
 
 
+# Function to create a new thread
 def create_thread(thd_name):
     try:
         process_pid = os.getpid()
@@ -53,6 +58,7 @@ def create_thread(thd_name):
         process_mgr_log.error(f"Error in create_thread: {str(e)}")
 
 
+# Function to handle user interactions within a process
 def process_handler(proc_name):
     try:
         process_mgr_log.info(
@@ -78,6 +84,7 @@ def process_handler(proc_name):
         process_mgr_log.error(f"Error in process_handler: {str(e)}")
 
 
+# Function to handle user interactions within a thread
 def thread_handler(thd_name):
     try:
         while not exit_thread.is_set():
@@ -87,6 +94,7 @@ def thread_handler(thd_name):
         process_mgr_log.error(f"Error in thread_handler: {str(e)}")
 
 
+# Function to display the list of running processes
 def show_processes():
     try:
         if not active_processes:
@@ -105,12 +113,13 @@ def show_processes():
         process_mgr_log.error(f"Error in show_processes: {str(e)}")
 
 
+# Function to display the list of threads within the current process
 def show_threads():
     try:
         process_pid = os.getpid()
         thds = threads_dic.get(process_pid, [])
         if not thds:
-            print("No threads available from process.")
+            print("No threads available from the process.")
         else:
             print(f"Thread name(s): ")
             for thread in thds:
@@ -120,6 +129,7 @@ def show_threads():
         process_mgr_log.error(f"Error in show_threads: {str(e)}")
 
 
+# Function to terminate a specific process
 def terminate_process(p_name):
     for pid, proc_name in list(active_processes.items()):
         if proc_name == p_name:
@@ -137,6 +147,7 @@ def terminate_process(p_name):
     process_mgr_log.error(f"Process '{p_name}' not found.")
 
 
+# Function to terminate a specific thread
 def terminate_thread(thd_name):
     try:
         process_pid = os.getpid()
@@ -156,6 +167,7 @@ def terminate_thread(thd_name):
         process_mgr_log.error(f"Error in terminate_thread: {str(e)}")
 
 
+# Function to handle user interactions for terminating processes and threads
 def terminate_handler():
     try:
         while True:
@@ -178,6 +190,7 @@ def terminate_handler():
         process_mgr_log.error(f"Error in terminate_handler: {str(e)}")
 
 
+# Function to send an IPC message
 def ipc_send_message(msg):
     try:
         os.write(write_pipe, msg.encode())
@@ -186,6 +199,7 @@ def ipc_send_message(msg):
         process_mgr_log.error(f"Error in ipc_send_message: {str(e)}")
 
 
+# Function to receive an IPC message
 def ipc_receive_message():
     try:
         if os.fstat(read_pipe).st_size > 0:
@@ -200,6 +214,7 @@ def ipc_receive_message():
         process_mgr_log.error(f"Error in ipc_receive_message: {str(e)}")
 
 
+# Function to create producer threads for synchronization
 def producer(buf, mut, emp, dat):
     for i in range(10):
         item = f"Item {i}"
@@ -213,6 +228,7 @@ def producer(buf, mut, emp, dat):
         time.sleep(random.uniform(0.1, 0.5))
 
 
+# Function to create consumer threads for synchronization
 def consumer(buf, mut, emp, dat):
     for i in range(10):
         dat.acquire()
@@ -225,6 +241,7 @@ def consumer(buf, mut, emp, dat):
         time.sleep(random.uniform(0.1, 0.5))
 
 
+# Function to perform process synchronization using threads
 def synchronize_threads():
     producers = [threading.Thread(target=producer, args=(buffer, mutex, empty, data)) for _ in range(2)]
     consumers = [threading.Thread(target=consumer, args=(buffer, mutex, empty, data)) for _ in range(2)]
@@ -239,6 +256,7 @@ def synchronize_threads():
         consumer_thread.join()
 
 
+# Function to display the log text from the log file
 def display_log_text():
     try:
         with open('proc_mgr_log.log', 'r') as file:
